@@ -6,11 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.ebenezer.gana.movies.R
 import com.ebenezer.gana.movies.data.network.ErrorCode
 import com.ebenezer.gana.movies.data.network.Status
 import com.ebenezer.gana.movies.databinding.MovieListFragmentBinding
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MovieListFragment : Fragment() {
 
@@ -38,11 +42,14 @@ class MovieListFragment : Fragment() {
 
         }
 
-        viewModel.movies.observe(viewLifecycleOwner) {
-            (binding.movieList.adapter as MovieAdapter).submitList(it)
-            if (it.isEmpty()) {
-                viewModel.fetchFromNetwork()
-            }
+        lifecycleScope.launch {
+            viewModel.movies.catch { it.printStackTrace() }
+                .collect { movies ->
+                    (binding.movieList.adapter as MovieAdapter).submitList(movies)
+                    if (movies.isEmpty()) {
+                        viewModel.fetchFromNetwork()
+                    }
+                }
         }
 
         viewModel.loadingStatus.observe(viewLifecycleOwner) { loadingStatus ->
@@ -63,7 +70,6 @@ class MovieListFragment : Fragment() {
                 else -> {}
             }
             binding.swipeRefresh.isRefreshing = false
-
 
 
         }

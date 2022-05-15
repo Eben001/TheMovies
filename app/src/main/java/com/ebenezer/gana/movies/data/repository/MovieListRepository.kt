@@ -8,6 +8,7 @@ import com.ebenezer.gana.movies.data.local.dao.MovieListDao
 import com.ebenezer.gana.movies.data.network.ErrorCode
 import com.ebenezer.gana.movies.data.network.LoadingStatus
 import com.ebenezer.gana.movies.data.network.TmdbService
+import kotlinx.coroutines.flow.Flow
 import java.net.UnknownHostException
 
 class MovieListRepository(context: Application) {
@@ -17,7 +18,7 @@ class MovieListRepository(context: Application) {
     private val tmdbService by lazy { TmdbService.getInstance() }
 
 
-    fun getMovies(): LiveData<List<Movie>> = movieListDao.getMovies()
+    fun getMovies(): Flow<List<Movie>> = movieListDao.getMovies()
 
     suspend fun fetchFromNetwork() =
         try {

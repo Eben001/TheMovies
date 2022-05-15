@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import coil.load
 import com.ebenezer.gana.movies.R
@@ -13,6 +14,9 @@ import com.ebenezer.gana.movies.data.Movie
 import com.ebenezer.gana.movies.data.network.TmdbService
 import com.ebenezer.gana.movies.databinding.MovieDetailFragmentBinding
 import com.ebenezer.gana.movies.readableFormat
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 
 class MovieDetailFragment : Fragment() {
 
@@ -35,9 +39,11 @@ class MovieDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val id = navigationArgs.id
-
-        viewModel.getMovie(id).observe(viewLifecycleOwner) {
-            setData(it)
+        lifecycleScope.launch {
+            viewModel.getMovie(id).catch {it.printStackTrace()  }
+                .collect {
+                    setData(it)
+                }
         }
     }
 

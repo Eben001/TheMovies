@@ -6,13 +6,14 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.ebenezer.gana.movies.data.Movie
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface MovieListDao {
 
     // latest movies will appear at the top
     @Query("SELECT * FROM movie ORDER BY release_date DESC")
-    fun getMovies(): LiveData<List<Movie>>
+    fun getMovies(): Flow<List<Movie>>
 
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)

@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import com.ebenezer.gana.movies.data.Movie
 import com.ebenezer.gana.movies.data.local.MovieDatabase
 import com.ebenezer.gana.movies.data.local.dao.MovieDetailDao
+import kotlinx.coroutines.flow.Flow
 
 class MovieDetailRepository(context:Application) {
 
@@ -12,7 +13,7 @@ class MovieDetailRepository(context:Application) {
         MovieDatabase.getDatabase(context).movieDetailsDao()
 
 
-    fun getMovie(id:Long):LiveData<Movie> = movieDetailDao.getMovie(id)
+    fun getMovie(id:Long):Flow<Movie> = movieDetailDao.getMovie(id)
 
 
 }
