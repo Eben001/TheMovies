@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Movies</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="movie_backdrop">Movie Backdrop</string>
+    <string name="movie_list">TheMovies</string>
+    <string name="movie_details">Movie Details</string>
+    <string name="error_no_data">No data returned from the server. Please try again</string>
+    <string name="error_network">Error fetching data. Please try again</string>
+    <string name="unknown_error">Unknown Error %1$s</string>
+
+</resources>
