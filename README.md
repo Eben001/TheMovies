@@ -25,7 +25,8 @@
 - Network Error Handling
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![Untitled design](https://user-images.githubusercontent.com/54691862/168500432-97ab58bd-144a-494d-8aa3-2ebb826a6eea.png)
+
 
 
 
